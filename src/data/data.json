@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Brand design PT Indofood",
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaslabore harum pariatur doloremque reprehenderit. Corrupti!",
+    "imgUrl": "https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dWklMjBkZXNpZ258ZW58MHwwfDB8fHww&auto=format&fit=crop&w=800&q=60",
+    "link": "/project/1"
+  },
+  {
+    "id": 2,
+    "title": "App design PT Sinarmas",
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaslabore harum pariatur doloremque reprehenderit. Corrupti!",
+    "imgUrl": "https://images.unsplash.com/photo-1621111848501-8d3634f82336?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dWklMjBkZXNpZ258ZW58MHwwfDB8fHww&auto=format&fit=crop&w=800&q=60",
+    "link": "/project/2"
+  },
+  {
+    "id": 3,
+    "title": "App design PT Noesantara",
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaslabore harum pariatur doloremque reprehenderit. Corrupti!",
+    "imgUrl": "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dWklMjBkZXNpZ258ZW58MHwwfDB8fHww&auto=format&fit=crop&w=800&q=60",
+    "link": "/project/3"
+  }
+]
