@@ -4,6 +4,7 @@ import Image from "next/image";
 import data from "@/data/data.json";
 import AppShell from "@/components/Layouts/AppShell";
 import CommentSection from "@/components/Fragments/CommentSection";
+import type { FormEvent } from "react";
 
 type queryDataType = {
   id: number;
@@ -13,15 +14,75 @@ type queryDataType = {
   link: string;
 };
 
+type commentType = {
+  id: number;
+  name: string;
+  comment: string;
+};
+
 const BlogDetail = () => {
   const router = useRouter();
+  const formName = document.getElementById("first_name") as HTMLInputElement;
+  const formComment = document.getElementById("comment") as HTMLInputElement;
+
   const [queryData, setQueryData] = useState<queryDataType>();
+  const [comments, setComments] = useState<commentType[]>([
+    { id: 1, name: "udin", comment: "ini komen udin" },
+    { id: 2, name: "rizki", comment: "ini komen rizki" },
+  ]);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [edit, setEdit] = useState<commentType>();
+
   useEffect(() => {
     const queryData = data.find(
       (eachData) => eachData.id === parseInt(router.query.id as string)
     );
     setQueryData(queryData);
   }, [router]);
+
+  const submitHandler = (event: FormEvent) => {
+    event.preventDefault();
+    const FormElement = event.target as HTMLFormElement;
+    const formData = new FormData(FormElement);
+    const formDataObject = Object.fromEntries(formData.entries()) as Omit<
+      commentType,
+      "id"
+    >;
+
+    if (isEdit) {
+      comments.map((comment) => {
+        if (comment.id === edit?.id) {
+          comment.name = formDataObject.name;
+          comment.comment = formDataObject.comment;
+        }
+      });
+      setIsEdit(false);
+    } else {
+      setComments([
+        ...comments,
+        { id: new Date().getTime(), ...formDataObject },
+      ]);
+    }
+    formName.value = "";
+    formComment.value = "";
+  };
+
+  const deleteHandler = (id: number) => {
+    const filteredComments = comments.filter(
+      (eachComment) => eachComment.id !== id
+    );
+    setComments(filteredComments);
+  };
+
+  const editHandler = (id: number) => {
+    setIsEdit(true);
+    const selectedComment = comments.find(
+      (eachComment) => eachComment.id === id
+    );
+    formName.value = selectedComment ? selectedComment.name : "";
+    formComment.value = selectedComment ? selectedComment.comment : "";
+    setEdit({ id, name: formName.value, comment: formComment.value });
+  };
 
   return (
     <AppShell>
@@ -137,8 +198,8 @@ const BlogDetail = () => {
         </div>
         <div className="border-b" />
         <div className="mt-6">
-          <h1 className="pb-6">Komentar (1)</h1>
-          <form className="mb-6 flex flex-col gap-2">
+          <h1 className="pb-6">Komentar ({comments.length})</h1>
+          <form className="mb-6 flex flex-col gap-2" onSubmit={submitHandler}>
             <input
               type="text"
               id="first_name"
@@ -163,7 +224,17 @@ const BlogDetail = () => {
             </button>
           </form>
           <div>
-            <CommentSection></CommentSection>
+            {comments.map((comment) => (
+              <CommentSection
+                key={comment.id}
+                id={comment.id}
+                name={comment.name}
+                onDelete={deleteHandler}
+                onEdit={editHandler}
+              >
+                {comment.comment}
+              </CommentSection>
+            ))}
           </div>
         </div>
       </div>
