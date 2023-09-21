@@ -22,8 +22,6 @@ type commentType = {
 
 const BlogDetail = () => {
   const router = useRouter();
-  const formName = document.getElementById("first_name") as HTMLInputElement;
-  const formComment = document.getElementById("comment") as HTMLInputElement;
 
   const [queryData, setQueryData] = useState<queryDataType>();
   const [comments, setComments] = useState<commentType[]>([
@@ -63,6 +61,8 @@ const BlogDetail = () => {
         { id: new Date().getTime(), ...formDataObject },
       ]);
     }
+    const formName = document.getElementById("first_name") as HTMLInputElement;
+    const formComment = document.getElementById("comment") as HTMLInputElement;
     formName.value = "";
     formComment.value = "";
   };
@@ -79,6 +79,8 @@ const BlogDetail = () => {
     const selectedComment = comments.find(
       (eachComment) => eachComment.id === id
     );
+    const formName = document.getElementById("first_name") as HTMLInputElement;
+    const formComment = document.getElementById("comment") as HTMLInputElement;
     formName.value = selectedComment ? selectedComment.name : "";
     formComment.value = selectedComment ? selectedComment.comment : "";
     setEdit({ id, name: formName.value, comment: formComment.value });
