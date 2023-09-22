@@ -7,12 +7,17 @@ type propsType = {
   children: React.ReactNode;
   onDelete: any;
   onEdit: any;
+  isEdited: boolean;
 };
 
 const CommentSection = (props: propsType) => {
-  const { id, name, children, onDelete, onEdit } = props;
+  const { id, name, children, onDelete, onEdit, isEdited } = props;
   return (
-    <article className="text-base bg-blue-100-100 p-4 mt-5 ">
+    <article
+      className={`text-base bg-slate-100 p-4 mt-5 rounded-lg duration-100 ${
+        isEdited ? "bg-blue-100 scale-[1.03]" : ""
+      }`}
+    >
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center">
           <div className="inline-flex items-center mr-3 text-sm text-gray-900  font-semibold">

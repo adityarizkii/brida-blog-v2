@@ -65,6 +65,7 @@ const BlogDetail = () => {
     const formComment = document.getElementById("comment") as HTMLInputElement;
     formName.value = "";
     formComment.value = "";
+    setEdit(undefined);
   };
 
   const deleteHandler = (id: number) => {
@@ -72,18 +73,29 @@ const BlogDetail = () => {
       (eachComment) => eachComment.id !== id
     );
     setComments(filteredComments);
+    setIsEdit(false);
+    setEdit(undefined);
   };
 
   const editHandler = (id: number) => {
-    setIsEdit(true);
-    const selectedComment = comments.find(
-      (eachComment) => eachComment.id === id
-    );
-    const formName = document.getElementById("first_name") as HTMLInputElement;
-    const formComment = document.getElementById("comment") as HTMLInputElement;
-    formName.value = selectedComment ? selectedComment.name : "";
-    formComment.value = selectedComment ? selectedComment.comment : "";
-    setEdit({ id, name: formName.value, comment: formComment.value });
+    if (isEdit) {
+      setIsEdit(false);
+      setEdit(undefined);
+    } else {
+      setIsEdit(true);
+      const selectedComment = comments.find(
+        (eachComment) => eachComment.id === id
+      );
+      const formName = document.getElementById(
+        "first_name"
+      ) as HTMLInputElement;
+      const formComment = document.getElementById(
+        "comment"
+      ) as HTMLInputElement;
+      formName.value = selectedComment ? selectedComment.name : "";
+      formComment.value = selectedComment ? selectedComment.comment : "";
+      setEdit({ id, name: formName.value, comment: formComment.value });
+    }
   };
 
   return (
@@ -226,17 +238,20 @@ const BlogDetail = () => {
             </button>
           </form>
           <div>
-            {comments.map((comment) => (
-              <CommentSection
-                key={comment.id}
-                id={comment.id}
-                name={comment.name}
-                onDelete={deleteHandler}
-                onEdit={editHandler}
-              >
-                {comment.comment}
-              </CommentSection>
-            ))}
+            {comments.map((comment) => {
+              return (
+                <CommentSection
+                  key={comment.id}
+                  id={comment.id}
+                  name={comment.name}
+                  onDelete={deleteHandler}
+                  onEdit={editHandler}
+                  isEdited={edit?.id === comment.id ? true : false}
+                >
+                  {comment.comment}
+                </CommentSection>
+              );
+            })}
           </div>
         </div>
       </div>
