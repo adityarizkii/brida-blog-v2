@@ -15,7 +15,7 @@ const CommentSection = (props: propsType) => {
   return (
     <article
       className={`text-base bg-slate-100 p-4 mt-5 rounded-lg duration-100 ${
-        isEdited ? "bg-blue-100 scale-[1.03]" : ""
+        isEdited ? "bg-blue-200 scale-[1.03]" : ""
       }`}
     >
       <div className="flex justify-between items-center mb-2">
