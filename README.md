@@ -1,5 +1,3 @@
 crud next js
 
-ini linknya bang 👇
-
-https://bridablog.vercel.app/
+<a href="https://bridablog.vercel.app/" target="_blank">ini linknya bang</a>
